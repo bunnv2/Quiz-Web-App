@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def sign(request):
+    return render(request, "account/sign.html")
