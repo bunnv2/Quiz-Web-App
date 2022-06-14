@@ -21,5 +21,5 @@ urlpatterns = [
     #api paths
     path("", include("home.urls")),
     path("quizes/", include("quiz.urls")),
-    path("accounts/", include("accounts.urls")),
+    path("account/", include("account.urls")),
 ]
