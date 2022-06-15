@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% block content %}
 <div class="cointainer">
-    <div class="m-5 d-flex flex-column justify-content-center">
+    <div class="mx-auto d-flex flex-column justify-content-center" style="max-width: 700px; margin-top: 5%;">
         <!-- Question -->
         <input type="text" class="form-control mb-4" placeholder="Enter Question">
         <!-- First answer -->
@@ -37,10 +37,9 @@
             <input type="text" class="form-control" placeholder="Fourth answer" aria-label="Text input with checkbox">
         </div>
         <!-- Buttons -->
-        <div class="d-grid gap-2">
-            <button type="button" class="btn btn-outline-dark" style="margin-left: 10%; margin-right: 10%;">Add another
-                question</button>
-            <button type="button" class="btn btn-outline-dark" style="margin-left: 10%; margin-right: 10%;">Add and save
+        <div class="d-grid gap-2" style="margin-left: 35%; margin-right: 35%;">
+            <button type="button" class="btn btn-outline-dark">Next question</button>
+            <button type="button" class="btn btn-outline-dark">Save
                 quiz</button>
         </div>
     </div>
