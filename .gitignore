@@ -156,6 +156,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-account/migrations/__pycache__/
-quiz/migrations/__pycache__/
-home/migrations/__pycache__/
+account/migrations/
+quiz/migrations/
+home/migrations/
