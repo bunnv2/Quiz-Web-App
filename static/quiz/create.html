@@ -10,6 +10,7 @@
     </div>
 
     <p>&nbsp;</p>
+    {% if user.is_authenticated %}
     <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
           <form method="post" class="form-group">
           {% csrf_token %}
@@ -17,5 +18,11 @@
             <button type="submit" class="btn btn-outline-dark" style="margin: 0 35% 0 35%; width: 30%">Create</button>
           </form>
     </div> 
+    {%endif%}
+    {% if not user.is_authenticated %}
+    <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
+        <p class="text-center lead">You must be logged in to create a quiz!</p>
+    </div>
+    {% endif %}
 </div>
 {%endblock content%}

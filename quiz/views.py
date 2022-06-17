@@ -5,20 +5,20 @@ from account.models import Account
 
 def create(request):
     context = {}
-    if request.method == "POST":
-        form = QuizForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-            quiz = Quiz(
-                name=form.cleaned_data["name"],
-                category=form.cleaned_data["category"],
-                # id_user=User.objects.get(login=request.POST["active"]),
-            )
-            quiz.save()
-            return redirect("add")
-    else:
-        form = QuizForm()
-        context["form"] = form
+    form = QuizForm()
+    context["form"] = form
+    user = request.user
+    if user.is_authenticated:
+        if request.method == "POST":
+            if form.is_valid():
+                print(form.cleaned_data)
+                quiz = Quiz(
+                    name=form.cleaned_data["name"],
+                    category=form.cleaned_data["category"],
+                    id_user=user,
+                )
+                quiz.save()
+                return redirect("add")
     return render(request, "quiz/create.html", context)
 
 
