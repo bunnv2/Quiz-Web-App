@@ -7,38 +7,40 @@
       <h1 class='display-4 text-center'>Sign up or log in!</h1>
     </div>
   </div>
-
-  <form>
+  {% if not user.is_authenticated %}
+  <form method="POST">
     <!-- Login -->
     <div class="form-outline mx-auto" style="max-width: 700px">
       <p>&nbsp;</p>
-      <input type="login" id="form2Example1" class="form-control" />
-      <label class="form-label mx-2" for="form2Example1"> Login </label>
+      {{form.username.label}}
+      {{form.username}}
     </div>
 
     <!-- Password -->
     <div class="form-outline mx-auto" style="max-width: 700px">
-      <input type="password" id="form2Example2" class="form-control" />
-      <label class="form-label mx-2" for="form2Example2"> Password </label>
+      {{form.password.label}}
+      {{form.password}}
     </div>
-
-    <!-- Remember me checkbox-->
-    <div class="text-center">
-      <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-      <label class="form-check-label" for="form2Example31"> Remember me </label>
-    </div>
-
-    <p>&nbsp;</p>
     <!-- Sign in Button -->
     <div class="text-center">
-      <button type="button" class="btn btn-primary btn-block ">Sign in</button>
+      <button type="submit" class="btn btn-primary btn-block ">Sign in</button>
     </div>
 
     <!-- Register Button -->
     <div class="text-center">
       <p>&nbsp;</p>
-      <p>Not a member? <a href="#!">Register</a></p>
+      <p>Not a member? <a href="{% url 'register' %}">Register</a></p>
     </div>
+    {% csrf_token %}
 
   </form>
+  {% else %}
+  <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
+    <p>&nbsp;</p>
+    <h1 class = "display-6">Hi {{request.user.username}}!</p>
+    <p class="lead">
+      You can <a style="text-decoration:none" href="{% url 'logout' %}">log out</a> here.
+    </p>
+  </div>
+  {% endif %}
   {%endblock content%}
