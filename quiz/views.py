@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from .forms import *
-from account.models import User
+from account.models import Account
 
 
 def create(request):
