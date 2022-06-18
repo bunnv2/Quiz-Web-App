@@ -73,3 +73,6 @@ def add(request, quiz_id):
 
 def quizes(request):
     return render(request, "quiz/quizes.html")
+
+def solving(request):
+    return render(request, "quiz/solving.html")
