@@ -14,9 +14,16 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'create' %}" id="creatorItem">Create</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'sign' %}" id="signItem">Sign up</a>
-        </li>
+        {% if not user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'sign' %}" id="signItem">Log in</a>
+          </li>
+        {% endif %}
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'sign' %}" id="accountItem">Hi {{request.user.username}}!</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>

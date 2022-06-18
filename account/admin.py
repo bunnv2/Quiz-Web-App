@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import User
+from .models import Account
 
 
-class UserAdmin(admin.ModelAdmin):
-    list_display = ("login", "password", "user_type", "blocked")
+class AccountAdmin(admin.ModelAdmin):
+    list_display = ("username", "password", "is_admin")
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(Account, AccountAdmin)

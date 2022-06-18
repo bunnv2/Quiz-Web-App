@@ -10,16 +10,19 @@
     </div>
 
     <p>&nbsp;</p>
+    {% if user.is_authenticated %}
     <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
-        <input type="text" class="form-control mb-4" id="quizNameInput" placeholder="Enter Quiz Name">
-        <select class="form-select mb-5">
-            <option selected>Select category</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-        <a class="btn btn-outline-dark" role="button" style="margin-left: 35%; margin-right: 35%;"
-            href="{% url 'add' %}">Create</a>
+          <form method="post" class="form-group">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-outline-dark" style="margin: 0 35% 0 35%; width: 30%">Create</button>
+          </form>
+    </div> 
+    {%endif%}
+    {% if not user.is_authenticated %}
+    <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
+        <p class="text-center lead">You must be logged in to create a quiz!</p>
     </div>
+    {% endif %}
 </div>
 {%endblock content%}

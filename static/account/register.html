@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+{%block content%}
+<div class="cointainer">
+
+    <div class="row">
+        <div class="col-12">
+            <p>&nbsp;</p>
+            <h1 class='display-4 text-center'>Register an account!</h1>
+        </div>
+    </div>
+
+    <p>&nbsp;</p>
+    <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
+          <form method="post" class="form-group">
+            {% csrf_token %}
+            {{form.as_p}}
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-block ">Sign in</button>
+            </div>
+          </form>
+    </div> 
+</div>
+{%endblock content%}
