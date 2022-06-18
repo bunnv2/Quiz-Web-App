@@ -2,46 +2,44 @@
 {% block content %}
 <div class="cointainer">
     <div class="mx-auto d-flex flex-column justify-content-center" style="max-width: 700px; margin-top: 5%;">
-        <!-- Question -->
-        <input type="text" class="form-control mb-4" placeholder="Enter Question">
-        <!-- First answer -->
-        <div class="input-group mb-3">
-            <div class="input-group-text">
-                <input class="form-check-input mt-0" type="checkbox" value=""
-                    aria-label="Checkbox for following text input">
+        <form method="post">
+            {% csrf_token %}
+            <!-- Question -->
+            {{question_form.as_p}}
+            <!-- First answer -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    {{answers_form.correct1}}
+                </div>
+                {{answers_form.answer1}}
             </div>
-            <input type="text" class="form-control" placeholder="First answer" aria-label="Text input with checkbox">
-        </div>
-        <!-- Second answer -->
-        <div class="input-group mb-3">
-            <div class="input-group-text">
-                <input class="form-check-input mt-0" type="checkbox" value=""
-                    aria-label="Checkbox for following text input">
+            <!-- Second answer -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    {{answers_form.correct2}}
+                </div>
+                {{answers_form.answer2}}
             </div>
-            <input type="text" class="form-control" placeholder="Second answer" aria-label="Text input with checkbox">
-        </div>
-        <!-- Third answer -->
-        <div class="input-group mb-3">
-            <div class="input-group-text">
-                <input class="form-check-input mt-0" type="checkbox" value=""
-                    aria-label="Checkbox for following text input">
+            <!-- Third answer -->
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    {{answers_form.correct3}}
+                </div>
+                {{answers_form.answer3}}
             </div>
-            <input type="text" class="form-control" placeholder="Third answer" aria-label="Text input with checkbox">
-        </div>
-        <!-- Fourth answer -->
-        <div class="input-group mb-5">
-            <div class="input-group-text">
-                <input class="form-check-input mt-0" type="checkbox" value=""
-                    aria-label="Checkbox for following text input">
+            <!-- Fourth answer -->
+            <div class="input-group mb-5">
+                <div class="input-group-text">
+                    {{answers_form.correct4}}
+                </div>
+                {{answers_form.answer4}}
             </div>
-            <input type="text" class="form-control" placeholder="Fourth answer" aria-label="Text input with checkbox">
-        </div>
-        <!-- Buttons -->
-        <div class="d-grid gap-2" style="margin-left: 35%; margin-right: 35%;">
-            <button type="button" class="btn btn-outline-dark">Next question</button>
-            <button type="button" class="btn btn-outline-dark">Save
-                quiz</button>
-        </div>
+            <!-- Buttons -->
+            <div class="d-grid gap-2" style="margin-left: 35%; margin-right: 35%;">
+                <button type="submit" class="btn btn-outline-dark">Next question</button>
+                <a href="{% url 'quizes' %}" class="btn btn-outline-dark">Go to quizes</a>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock content %}
