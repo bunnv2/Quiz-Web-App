@@ -13,7 +13,7 @@
     {% if user.is_authenticated %}
     <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
           <form method="post" class="form-group">
-          {% csrf_token %}
+            {% csrf_token %}
             {{form.as_p}}
             <button type="submit" class="btn btn-outline-dark" style="margin: 0 35% 0 35%; width: 30%">Create</button>
           </form>

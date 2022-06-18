@@ -24,14 +24,17 @@ def sign(request):
 
 
 def register(request):
+    context = {}
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
+            context["form"] = form
             return redirect("home")
     else:
         form = RegisterForm()
-    return render(request, "account/register.html", {"form": form})
+        context["form"] = form
+    return render(request, "account/register.html", context)
 
 
 def logout_view(request):

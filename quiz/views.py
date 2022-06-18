@@ -5,13 +5,11 @@ from account.models import Account
 
 def create(request):
     context = {}
-    form = QuizForm()
-    context["form"] = form
     user = request.user
     if user.is_authenticated:
         if request.method == "POST":
+            form = QuizForm(request.POST)
             if form.is_valid():
-                print(form.cleaned_data)
                 quiz = Quiz(
                     name=form.cleaned_data["name"],
                     category=form.cleaned_data["category"],
@@ -19,6 +17,8 @@ def create(request):
                 )
                 quiz.save()
                 return redirect("add")
+    form = QuizForm()
+    context["form"] = form
     return render(request, "quiz/create.html", context)
 
 
