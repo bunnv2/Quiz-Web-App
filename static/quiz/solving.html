@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %}
+{%block content%}
+
+<div class="cointainer">
+
+    <!-- Name of the quiz -->
+    <div class="row">
+        <div class="col-12">
+            <p>&nbsp;</p>
+            <h1 class='display-4 text-center'>QuizName_1</h1>
+            <p>&nbsp;</p>
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
+
+    <!-- Question displays here -->
+        <div class="question bg-white p-3 border-bottom">
+            <div class="question-number d-flex flex-row justify-content-end">
+                <h5 class="text-secondary"> (1 of 10) </h5>
+            </div>
+
+            <div class="question-title d-flex flex-row align-items-center">
+                <h3 class="text-secondary">Q: &ensp;</h3>
+                <h5 class="mt-1 ml-2"> What is your favourite football club? </h5>
+            </div>
+        </div>
+
+    <!-- Answers display here -->
+        <!-- Answer no 1 -->
+        <div class="question bg-white p-2 border-bottom">
+            <input class="input-check" type="checkbox" value="" id="check1">
+            <label for="check1" class="label-check"> &emsp; Ruchu nasz kochany, ligowa drużyno, </label>     
+        </div>
+
+        
+        <!-- Answer no 2 -->
+        <div class="question bg-white p-2 border-bottom">
+            <input class="input-check" type="checkbox" value="" id="check2">
+            <label for="check2" class="label-check"> &emsp; wszyscy Cię kochamy, chłopak wraz z dziewczyną. </label>     
+        </div>
+
+        <!-- Answer no 3 -->
+        <div class="question bg-white p-2 border-bottom">
+            <input class="input-check" type="checkbox" value="" id="check3">
+            <label for="check3" class="label-check"> &emsp; Graj nam dobrze graj, jak za dawnych czasów, </label>     
+        </div>
+
+        <!-- Answer no 4 -->
+        <div class="question bg-white p-2 border-bottom">
+            <input class="input-check" type="checkbox" value="" id="check4">
+            <label for="check4" class="label-check"> &emsp; kiedy wszyscy na boisku, wtórowali heja, heja, hej! </label>     
+        </div>
+
+          <form method="post" class="form-group">
+            {% csrf_token %}
+            {{form.as_p}}
+            &nbsp;
+            <button type="submit" class="btn btn-outline-dark" style="margin: 0 35% 0 35%; width: 30%"> Next question </button>
+          </form>
+    </div> 
+
+    {%endif%}
+    {% if not user.is_authenticated %}
+    <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
+        <p class="text-center lead">You must be logged in to solve a quiz!</p>
+    </div>
+    {% endif %}
+
+</div>
+{%endblock content%}
