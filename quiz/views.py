@@ -68,11 +68,16 @@ def add(request, quiz_id):
     context["answers_form"] = answers_form
     return render(request, "quiz/add.html", context)
 
-    return render(request, "quiz/add.html")
-
 
 def quizes(request):
-    return render(request, "quiz/quizes.html")
+    context = {}
+    quizes = Quiz.objects.all()
+    questions_number = []
+    for quiz in quizes:
+        questions_number.append(len(Question.objects.filter(id_quiz=quiz)))
+    context["quizes"] = zip(quizes, questions_number)
+    return render(request, "quiz/quizes.html", context)
 
-def solving(request):
+
+def solving(request, quiz_id):
     return render(request, "quiz/solving.html")
