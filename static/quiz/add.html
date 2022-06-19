@@ -1,6 +1,7 @@
 {% extends 'base/base.html' %}
 {% block content %}
 <div class="cointainer">
+    {% if user.is_authenticated %}
     <div class="mx-auto d-flex flex-column justify-content-center" style="max-width: 700px; margin-top: 5%;">
         <form method="post">
             {% csrf_token %}
@@ -41,5 +42,14 @@
             </div>
         </form>
     </div>
+    {% else %}
+    <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
+        <p>&nbsp;</p>
+        <h1 class = "display-6">You have to be logged in to create a quiz.</p>
+        <p class="lead">
+          You can <a style="text-decoration:none" href="{% url 'sign' %}">log in</a> here.
+        </p>
+    </div>
+    {% endif %}
 </div>
 {% endblock content %}
