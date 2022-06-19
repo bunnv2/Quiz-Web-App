@@ -80,4 +80,46 @@ def quizes(request):
 
 
 def solving(request, quiz_id):
-    return render(request, "quiz/solving.html")
+    context = {}
+    user = request.user
+    if user.is_authenticated:
+        if request.method == "POST":
+            result = check_answers(request, quiz_id)
+            print(result)
+            context["result"] = check_answers(request, quiz_id)
+        quiz = Quiz.objects.get(id=quiz_id)
+        questions = Question.objects.filter(id_quiz=quiz)
+        answers, zipped = [], []
+        for id, question in enumerate(questions):
+            answers.append(Answer.objects.filter(id_question=question))
+            zipped.append([question, answers[id]])
+        context["questions"] = zipped
+        context["quiz"] = quiz
+    return render(request, "quiz/solving.html", context)
+
+
+def check_answers(request, quiz_id):
+    form_data = request.POST.getlist("answer", None)  # numerpytania:numerodpowiedzi
+    if form_data:
+        quiz = Quiz.objects.get(id=quiz_id)
+        questions = Question.objects.filter(id_quiz=quiz)
+        answers = Answer.objects.filter(id_question__in=questions)
+        selected_answers = []
+        result = 0
+        # odczytywanie wybranych odpowiedzi oraz przypisanie ich do list
+        for item in form_data:
+            sliced = item.split(":")
+            question = questions[int(sliced[0])]
+            answer = answers[4 * int(sliced[0]) + int(sliced[1])]
+            selected_answers.append(answer)
+        # sprawdzanie poprawnosci wybranych odpowiedzi
+        for question in questions:
+            correct_answers = Answer.objects.filter(id_question=question, correct=True)
+            correct_answers = [answer for answer in correct_answers]
+            selected_answers_in_question = [
+                answer for answer in selected_answers if answer.id_question == question
+            ]
+            if selected_answers_in_question == correct_answers:
+                result += 1
+        return round((result / len(questions)) * 100, 2)
+    return 0.0

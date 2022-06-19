@@ -2,6 +2,7 @@
 {%block content%}
 <div class="cointainer">
 
+    {% if user.is_authenticated %}
     <div class="row">
         <div class="col-12">
             <p>&nbsp;</p>
@@ -10,7 +11,6 @@
     </div>
 
     <p>&nbsp;</p>
-    {% if user.is_authenticated %}
     <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
           <form method="post" class="form-group">
             {% csrf_token %}
@@ -21,7 +21,11 @@
     {%endif%}
     {% if not user.is_authenticated %}
     <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
-        <p class="text-center lead">You must be logged in to create a quiz!</p>
+        <p>&nbsp;</p>
+        <h1 class = "display-6">You have to be logged in to create a quiz.</p>
+        <p class="lead">
+          You can <a style="text-decoration:none" href="{% url 'sign' %}">log in</a> here.
+        </p>
     </div>
     {% endif %}
 </div>
