@@ -10,61 +10,101 @@
             <p>&nbsp;</p>
         </div>
     </div>
-    
+
     {% if user.is_authenticated %}
     <form method="post" class="form-group">
         {% for question in questions %}
-            <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
-                    {% csrf_token %}
-                    <!-- Question displays here -->
-                    <div class="question bg-white p-3 border-bottom">
-                        <div class="question-title d-flex flex-row align-items-center">
-                            <h3 class="text-secondary display-6" style="font-size:36px">Q{{forloop.counter}}: &ensp;</h3>
-                            <h5 class="mt-1 ml-2 display-6" style="font-size: 34px">{{question.0}}</h5>
-                        </div>
-                    </div>
+        <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
+            {% csrf_token %}
+            <!-- Question displays here -->
+            <div class="question bg-white p-3 border-bottom">
+                <div class="question-title d-flex flex-row align-items-center">
+                    <h3 class="text-secondary display-6" style="font-size:36px">Q{{forloop.counter}}: &ensp;</h3>
+                    <h5 class="mt-1 ml-2 display-6" style="font-size: 34px">{{question.0}}</h5>
+                </div>
+            </div>
 
-                <!-- Answers display here -->
-                    <!-- Answer no 1 -->
-                    <div class="question bg-white p-2 border-bottom">
-                        <input class="form-check-input" type="checkbox" style="margin-top: 1.3%;" name="answer" value="{{forloop.counter0}}:0">
-                        <label for="check1" class="lead label-check"> &emsp; {{question.1.0}} </label>     
-                    </div>
+            <!-- Answers display here -->
+            <!-- Answer no 1 -->
+            <div class="question bg-white p-2 border-bottom">
+                <input class="form-check-input" type="checkbox" style="margin-top: 1.3%;" name="answer"
+                    value="{{forloop.counter0}}:0">
+                <label for="check1" class="lead label-check"> &emsp; {{question.1.0}} </label>
+            </div>
 
-                    
-                    <!-- Answer no 2 -->
-                    <div class="question bg-white p-2 border-bottom">
-                        <input class="form-check-input" type="checkbox" style="margin-top: 1.3%;" name="answer" value="{{forloop.counter0}}:1">
-                        <label for="check2" class="lead label-check"> &emsp; {{question.1.1}} </label>     
-                    </div>
 
-                    <!-- Answer no 3 -->
-                    <div class="question bg-white p-2 border-bottom">
-                        <input class="form-check-input" type="checkbox" style="margin-top: 1.3%;" name="answer" value="{{forloop.counter0}}:2">
-                        <label for="check3" class="lead label-check"> &emsp; {{question.1.2}} </label>     
-                    </div>
+            <!-- Answer no 2 -->
+            <div class="question bg-white p-2 border-bottom">
+                <input class="form-check-input" type="checkbox" style="margin-top: 1.3%;" name="answer"
+                    value="{{forloop.counter0}}:1">
+                <label for="check2" class="lead label-check"> &emsp; {{question.1.1}} </label>
+            </div>
 
-                    <!-- Answer no 4 -->
-                    <div class="question bg-white p-2 border-bottom">
-                        <input class="form-check-input" type="checkbox" style="margin-top: 1.3%;" name="answer" value="{{forloop.counter0}}:3">
-                        <label for="check4" class="lead label-check"> &emsp; {{question.1.3}} </label>     
-                    </div>
+            <!-- Answer no 3 -->
+            <div class="question bg-white p-2 border-bottom">
+                <input class="form-check-input" type="checkbox" style="margin-top: 1.3%;" name="answer"
+                    value="{{forloop.counter0}}:2">
+                <label for="check3" class="lead label-check"> &emsp; {{question.1.2}} </label>
+            </div>
 
-                    &nbsp;
-                </div> 
-                {% endfor %}
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-            </form>
+            <!-- Answer no 4 -->
+            <div class="question bg-white p-2 border-bottom">
+                <input class="form-check-input" type="checkbox" style="margin-top: 1.3%;" name="answer"
+                    value="{{forloop.counter0}}:3">
+                <label for="check4" class="lead label-check"> &emsp; {{question.1.3}} </label>
+            </div>
+
+            &nbsp;
+        </div>
+        {% endfor %}
+        <div class="mx-auto d-flex flex-column justify-content-center">
+            <button type="submit" class="btn btn-outline-dark btn-lg btn-block"
+                style="margin: 5% 35% 0 35%; width: 30%">Submit</button>
+        </div>
+    </form>
     {%endif%}
+
+    {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myMessage").modal('show');
+        });  
+    </script>
+    <!-- Modal -->
+    <div class="modal fade" id="myMessage" tabindex="-1" role="dialog" aria-labelledby="myMessageLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myMessageLabel">Congratulations!</h5>
+                </div>
+                <div class="modal-body">{{message}}</div>
+                <div class="modal-footer">
+                    <div class="mx-auto d-flex flex-column justify-content-center">
+                        <a href="{% url 'quizes' %}" class="btn btn-outline-dark">Save changes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
     {% if not user.is_authenticated %}
     <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
         <p>&nbsp;</p>
-        <h1 class = "display-6">You have to be logged in to solve a quiz.</p>
-        <p class="lead">
-          You can <a style="text-decoration:none" href="{% url 'sign' %}">log in</a> here.
-        </p>
-      </div>
+        <h1 class="display-6">You have to be logged in to solve a quiz.</p>
+            <p class="lead">
+                You can <a style="text-decoration:none" href="{% url 'sign' %}">log in</a> here.
+            </p>
+    </div>
     {% endif %}
 
 </div>
+
+
 {%endblock content%}

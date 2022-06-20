@@ -2,6 +2,7 @@ from multiprocessing import context
 from django.shortcuts import redirect, render
 from .forms import *
 from account.models import Account
+from django.contrib import messages
 
 
 def create(request):
@@ -83,12 +84,20 @@ def solving(request, quiz_id):
     context = {}
     user = request.user
     if user.is_authenticated:
-        if request.method == "POST":
-            result = check_answers(request, quiz_id)
-            print(result)
-            context["result"] = check_answers(request, quiz_id)
         quiz = Quiz.objects.get(id=quiz_id)
         questions = Question.objects.filter(id_quiz=quiz)
+        if request.method == "POST":
+            result_number = check_answers(request, quiz_id)
+            result = Result(
+                id_quiz=quiz,
+                id_user=user,
+                score=result_number,
+            )
+            # print(result_number)
+            # wyswitlenie modala
+            messages.success(request, f'Your result: {result_number}%')
+            result.save()
+            context["result"] = result_number
         answers, zipped = [], []
         for id, question in enumerate(questions):
             answers.append(Answer.objects.filter(id_question=question))
@@ -99,7 +108,8 @@ def solving(request, quiz_id):
 
 
 def check_answers(request, quiz_id):
-    form_data = request.POST.getlist("answer", None)  # numerpytania:numerodpowiedzi
+    # numerpytania:numerodpowiedzi
+    form_data = request.POST.getlist("answer", None)
     if form_data:
         quiz = Quiz.objects.get(id=quiz_id)
         questions = Question.objects.filter(id_quiz=quiz)
@@ -114,7 +124,8 @@ def check_answers(request, quiz_id):
             selected_answers.append(answer)
         # sprawdzanie poprawnosci wybranych odpowiedzi
         for question in questions:
-            correct_answers = Answer.objects.filter(id_question=question, correct=True)
+            correct_answers = Answer.objects.filter(
+                id_question=question, correct=True)
             correct_answers = [answer for answer in correct_answers]
             selected_answers_in_question = [
                 answer for answer in selected_answers if answer.id_question == question
