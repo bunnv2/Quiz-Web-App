@@ -29,7 +29,7 @@
     <!-- Register Button -->
     <div class="text-center">
       <p>&nbsp;</p>
-      <p>Not a member? <a href="{% url 'register' %}">Register</a></p>
+      <p>Not a member? <a href="{% url 'register' %}" style="text-decoration:none">Register</a></p>
     </div>
     {% csrf_token %}
 
@@ -37,10 +37,10 @@
   {% else %}
   <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
     <p>&nbsp;</p>
-    <h1 class = "display-6">Hi {{request.user.username}}!</p>
-    <p class="lead">
-      You can <a style="text-decoration:none" href="{% url 'logout' %}">log out</a> here.
-    </p>
+    <h1 class="display-6">Hi {{request.user.username}}!</p>
+      <p class="lead">
+        You can <a style="text-decoration:none" href="{% url 'logout' %}">log out</a> here.
+      </p>
   </div>
   {% endif %}
   {%endblock content%}
