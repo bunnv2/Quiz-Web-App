@@ -73,10 +73,13 @@ def add(request, quiz_id):
 def quizes(request):
     context = {}
     quizes = Quiz.objects.all()
-    questions_number = []
-    for quiz in quizes:
-        questions_number.append(len(Question.objects.filter(id_quiz=quiz)))
-    context["quizes"] = zip(quizes, questions_number)
+    if len(quizes) != 0:
+        questions_number = []
+        for quiz in quizes:
+            questions_number.append(len(Question.objects.filter(id_quiz=quiz)))
+        context["quizes"] = zip(quizes, questions_number)
+        return render(request, "quiz/quizes.html", context)
+    context["quizes"] = None
     return render(request, "quiz/quizes.html", context)
 
 
@@ -93,9 +96,8 @@ def solving(request, quiz_id):
                 id_user=user,
                 score=result_number,
             )
-            # print(result_number)
             # wyswitlenie modala
-            messages.success(request, f'Your result: {result_number}%')
+            messages.success(request, f"Your result: {result_number}%")
             result.save()
             context["result"] = result_number
         answers, zipped = [], []
@@ -124,8 +126,7 @@ def check_answers(request, quiz_id):
             selected_answers.append(answer)
         # sprawdzanie poprawnosci wybranych odpowiedzi
         for question in questions:
-            correct_answers = Answer.objects.filter(
-                id_question=question, correct=True)
+            correct_answers = Answer.objects.filter(id_question=question, correct=True)
             correct_answers = [answer for answer in correct_answers]
             selected_answers_in_question = [
                 answer for answer in selected_answers if answer.id_question == question
