@@ -1,20 +1,22 @@
 {% extends 'base/base.html' %}
 {%block content%}
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <p>&nbsp;</p>
-        <h1 class = 'display-4 text-center'>Quizes</h1>
-        <p>&nbsp;</p> <p>&nbsp;</p> <p>&nbsp;</p>
-        </div>
+  <div class="row">
+    <div class="col-12">
+      <p>&nbsp;</p>
+      <h1 class='display-4 text-center'>Quizes</h1>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
     </div>
+  </div>
 </div>
 
 <!-- Quizes list-->
 
+{% if quizes is not None %}
 <div class="row row-cols-1 row-cols-md-4 text-center mx-auto">
-    <!-- Quiz number 1 -->
-  {% for quiz,questions in quizes %}
+{% for quiz,questions in quizes %}
   <div class="col mb-4">
     <div class="card h-100">
       <div class="card-body">
@@ -22,13 +24,40 @@
         <h5>Questions: {{questions}}</h5>
         <h5>Topic: {{quiz.category}}</h5>
         <p class="card-text">Enter this Quiz by clicking here!</p>
-        <!-- href="{% url 'solving' quiz.id %}" -->
-        <a href="{% url 'solving' quiz.id %}" class="btn btn-primary stretched-link">Enter Quiz!</a>
+        {% if quiz.id_user == request.user %}
+        <div class ="row cols-2">
+          <div class="col">
+            <a href="{% url 'solving' quiz.id %}" class="btn btn-primary">Enter quiz!</a>
+          </div>
+          <div class="col">
+            <form method="post" action="{% url 'quiz_delete'%}" >
+              {% csrf_token %}
+              <input type="hidden" name="id_quiz" value="{{quiz.id}}">
+              <button type="submit" class="btn btn-outline-danger ">Delete</button>
+            </form>
+          </div>
+        </div>
+        {% else %}
+        <div class ="row cols-1">
+          <div class="col">
+            <a href="{% url 'solving' quiz.id %}" class="btn btn-primary">Enter quiz!</a>
+          </div>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>
   {% endfor %}
 </div>
+{% else %}
+<div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
+  <p>&nbsp;</p>
+  <h1 class="display-6">There are no quizes yet to be solved.</p>
+    <p class="lead">
+      You can <a style="text-decoration:none" href="{% url 'create' %}">create some</a> here.
+    </p>
+  </div>
+    {% endif %}
 
 
 {%endblock content%}
