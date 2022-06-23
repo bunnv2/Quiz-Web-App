@@ -16,7 +16,7 @@
 
 {% if quizes is not None %}
 <div class="row row-cols-1 row-cols-md-4 text-center mx-auto">
-{% for quiz,questions in quizes %}
+  {% for quiz,questions in quizes %}
   <div class="col mb-4">
     <div class="card h-100">
       <div class="card-body">
@@ -25,12 +25,12 @@
         <h5>Topic: {{quiz.category}}</h5>
         <p class="card-text">Enter this Quiz by clicking here!</p>
         {% if quiz.id_user == request.user %}
-        <div class ="row cols-2">
+        <div class="row cols-2">
           <div class="col">
-            <a href="{% url 'solving' quiz.id %}" class="btn btn-primary">Enter quiz!</a>
+            <a href="{% url 'solving' quiz.id %}" class="btn btn-outline-dark">Enter quiz!</a>
           </div>
           <div class="col">
-            <form method="post" action="{% url 'quiz_delete'%}" >
+            <form method="post" action="{% url 'quiz_delete'%}">
               {% csrf_token %}
               <input type="hidden" name="id_quiz" value="{{quiz.id}}">
               <button type="submit" class="btn btn-outline-danger ">Delete</button>
@@ -38,7 +38,7 @@
           </div>
         </div>
         {% else %}
-        <div class ="row cols-1">
+        <div class="row cols-1">
           <div class="col">
             <a href="{% url 'solving' quiz.id %}" class="btn btn-primary">Enter quiz!</a>
           </div>
@@ -56,8 +56,8 @@
     <p class="lead">
       You can <a style="text-decoration:none" href="{% url 'create' %}">create some</a> here.
     </p>
-  </div>
-    {% endif %}
+</div>
+{% endif %}
 
 
 {%endblock content%}
