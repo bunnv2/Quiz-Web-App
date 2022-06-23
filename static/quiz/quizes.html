@@ -5,9 +5,7 @@
     <div class="col-12">
       <p>&nbsp;</p>
       <h1 class='display-4 text-center'>Quizes</h1>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
+      <br><br>
     </div>
   </div>
 </div>
@@ -20,12 +18,11 @@
   <div class="col mb-4">
     <div class="card h-100">
       <div class="card-body">
-        <h2 class="card-title">{{quiz}}</h2>
-        <h5>Questions: {{questions}}</h5>
-        <h5>Topic: {{quiz.category}}</h5>
-        <p class="card-text">Enter this Quiz by clicking here!</p>
-        {% if quiz.id_user == request.user %}
-        <div class="row cols-2">
+        <h2 class="card-title display-3" style="font-size: 50px;">{{quiz}}</h2>
+        <h5 class = "display-6" style="font-size: 20px;">Questions: {{questions}}</h5>
+        <h5 class="card-text display-1" style="font-size: 20px;"">This quiz is about {{quiz.category}}, and is made by <p style="color:cadetblue">{{quiz.id_user}}</p></p>
+        {% if quiz.id_user == request.user or request.user.is_superuser%}
+        <div class ="row cols-2">
           <div class="col">
             <a href="{% url 'solving' quiz.id %}" class="btn btn-outline-dark">Enter quiz!</a>
           </div>
@@ -40,7 +37,7 @@
         {% else %}
         <div class="row cols-1">
           <div class="col">
-            <a href="{% url 'solving' quiz.id %}" class="btn btn-primary">Enter quiz!</a>
+            <a href="{% url 'solving' quiz.id %}" class="btn btn-outline-dark">Enter quiz!</a>
           </div>
         </div>
         {% endif %}
