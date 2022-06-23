@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
+from quiz.models import Quiz, Question, Answer, Result
 
 
 def sign(request):
     context = {}
     user = request.user
     if user.is_authenticated:
+        context["results"] = Result.objects.filter(id_user=user)
         return render(request, "account/sign.html", context)
 
     if request.method == "POST":

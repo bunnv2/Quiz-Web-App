@@ -37,10 +37,25 @@
   {% else %}
   <div class="mx-auto d-flex flex-column justify-content-center" style="max-width:700px;">
     <p>&nbsp;</p>
-    <h1 class="display-6">Hi {{request.user.username}}!</p>
-      <p class="lead">
-        You can <a style="text-decoration:none" href="{% url 'logout' %}">log out</a> here.
-      </p>
+    <h1 class="display-6">Hi {{request.user.username}}!</h1>
+    <p class="lead">
+      You can <a style="text-decoration:none" href="{% url 'logout' %}">log out</a> here.
+    </p>
+    <br>
+    <h1 class="display-6" style="font-size: 30px;">Your result history:</h1>
+    {% for result in results %}
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{result.id_quiz.name}}</h5>
+            <p class="card-text">{{result.score}}%</p>
+            <p class="card-text"><small class="text-muted">{{result.date}}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
   </div>
   {% endif %}
   {%endblock content%}

@@ -21,8 +21,7 @@ class QuizForm(forms.ModelForm):
         required=True,
         label=False,
         widget=forms.TextInput(
-            attrs={"class": "form-control mb-5",
-                   "placeholder": "Enter Quiz Category"}
+            attrs={"class": "form-control mb-5", "placeholder": "Enter Quiz Category"}
         ),
     )
 
@@ -33,15 +32,12 @@ class QuizForm(forms.ModelForm):
 
 class QuestionForm(forms.ModelForm):
     question = forms.CharField(
-        max_length=50,
+        max_length=200,
         required=True,
         label=False,
         widget=forms.TextInput(
-            attrs={
-                "class": "form-control mb-4",
-                "placeholder": "Enter Question"
-            }
-        )
+            attrs={"class": "form-control mb-4", "placeholder": "Enter Question"}
+        ),
     )
 
     class Meta:
@@ -52,81 +48,49 @@ class QuestionForm(forms.ModelForm):
 class AnswerForm(forms.Form):
     correct1 = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(
-            attrs={
-                "class": "form-check-input mt-0"
-            }
-        )
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input mt-0"}),
     )
     answer1 = forms.CharField(
         max_length=50,
         required=True,
         label=False,
         widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "First answer"
-            }
-        )
-
+            attrs={"class": "form-control", "placeholder": "First answer"}
+        ),
     )
     correct2 = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(
-            attrs={
-                "class": "form-check-input mt-0"
-            }
-        )
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input mt-0"}),
     )
     answer2 = forms.CharField(
         max_length=50,
         required=True,
         label=False,
         widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Second answer"
-            }
-        )
-
+            attrs={"class": "form-control", "placeholder": "Second answer"}
+        ),
     )
     correct3 = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(
-            attrs={
-                "class": "form-check-input mt-0"
-            }
-        )
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input mt-0"}),
     )
     answer3 = forms.CharField(
         max_length=50,
         required=True,
         label=False,
         widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Third answer"
-            }
-        )
-
+            attrs={"class": "form-control", "placeholder": "Third answer"}
+        ),
     )
     correct4 = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(
-            attrs={
-                "class": "form-check-input mt-0"
-            }
-        )
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input mt-0"}),
     )
     answer4 = forms.CharField(
         max_length=50,
         required=True,
         label=False,
         widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Fourth answer"
-            }
-        )
-
+            attrs={"class": "form-control", "placeholder": "Fourth answer"}
+        ),
     )
