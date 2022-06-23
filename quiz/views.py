@@ -135,3 +135,10 @@ def check_answers(request, quiz_id):
                 result += 1
         return round((result / len(questions)) * 100, 2)
     return 0.0
+
+
+def quiz_delete(request):
+    data = request.POST.getlist("id_quiz", None)
+    quiz = Quiz.objects.get(id=data[0])
+    quiz.delete()
+    return redirect("quizes")
